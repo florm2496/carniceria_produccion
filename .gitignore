@@ -149,6 +149,9 @@ dmypy.json
 # profiling data
 .prof
 
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/tasks.json
