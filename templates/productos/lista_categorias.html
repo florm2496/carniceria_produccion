@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">LISTADO DE CATEGORIAS</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      
+                    </a>
+                 
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                 
+                 {% if not obj %}
+                     No hay categorias registradas
+                 {% endif %}
+                 <div class="buttons-toolbar"> <a class="dropdown-item" href="#" onclick="return abrir_modal('{% url 'productos:crearcategoria' %}')"><i class="far fa-calendar-plus"></i>Nueva</a></div>
+                 <table data-toggle="table"
+                 id="table"
+
+                 data-pagination="true" 
+                 data-search="true"
+                 data-show-columns="true"
+                 data-show-toggle="true"
+                 data-show-fullscreen="true"
+                 data-toolbar=".buttons-toolbar"
+                 data-locale="es-AR"
+
+                 >
+                    <thead>
+   <th data-sortable="true" data-field="id" >Id</th>
+    <th data-sortable="true" data-field="nombre" >Nombre</th>
+
+   
+
+     <th data="numero" >Estado</i></th>
+     
+   
+     <th class="all">Editar</th>
+   
+    
+  
+                    </thead>
+<tbody>
+
+    {% for item in obj  %}
+    <tr>
+      <td>{{item.id}}</td>
+
+        <td>{{item.nombre}}</td>
+
+
+        <td>
+            
+            {% if item.estado %}
+                Activa
+             {% else %}
+             Inactiva   
+            {% endif %}
+                
+        </td>
+        
+     
+        <td>
+          <button type="submit" class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'productos:editar_categoria' item.pk %}')"><i class="far fa-edit"></i></button>
+     
+             
+            </td>
+       
+<!--modal de pagos del cliente-->
+     
+    
+    
+       </tr>  
+       {% endfor %}
+    
+        
+   
+        
+</tbody>
+
+                 </table>
+                     
+                </div>
+              </div>
+    
+{% endblock page_content %}
+{% block js_page %}
+
+<script>
+
+     </script>
+{% endblock %}
+    

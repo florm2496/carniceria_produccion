@@ -1,0 +1,345 @@
+<style>
+.fornombre{
+    width: 20px;
+}
+</style>
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        {% if obj %}
+        <form method="POST" role="form" class="form-inline" action="{% url 'productos:actualizar_producto' obj.pk %} "> 
+         {% else %}    
+         <form method="POST" role="form" class="form-inline" action="{% url 'productos:crear_producto' %} "> 
+        {% endif %}
+        {% csrf_token %}
+            <div class="col-xl-12 col-md-12 mb-12">
+                {% if obj %}
+                <div class="card border-left-warning shadow h-100 py-2">
+                {% else %}
+                <div class="card border-left-success shadow h-100 py-2">
+                {% endif %}
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                {% if obj %} Editar {% else %} Nuevo {% endif %} Producto
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            
+                            <div class="row">
+                                <div class="row" style="width: 745px ;height: 62px;">
+                                    <div class="col-md-6">
+                                        <div class="col-md-6 ">{{form.nombre.label}}</div>
+                                        <div class="col-md-6 ">{{form.nombre}}</div>
+                                    </div>
+        
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">{{form.codigo.label}}</div>
+                                        <div class="col-md-6">{{form.codigo}}</div>    
+                                    </div>                            
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.descripcion.label}}</div>
+                                    <div class="col-md-6">{{form.descripcion}}</div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.precioventa.label}}(por kg)</div>
+                                    <div class="col-md-6">{{form.precioventa}}</div>
+                                  
+                                </div>                            
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">Unidad</div>
+                                    <div class="col-md-6">
+                                        <select name="unidad" id="id_unidad" class="form-control from-control-sm" >
+                                          
+                                    
+                                                <option value="" disabled selected>Selecciona una opción</option>
+                                                {% for item in unidades  %}
+                                                <option value="{{item.id}}">{{item.nombre}}</option>
+                            
+                                                {% endfor %}
+                                             
+                                                    
+                                                
+                                        </select>
+                                    </div>
+                                   
+                                </div>
+                            <div class="col-md-6">
+                                <div class="col-md-6">Marcas<small>(solo para prod.)</small> </div>
+                                <div class="col-md-6">
+                                    <select name="marca" id="id_marca" class="form-control from-control-sm" >
+                                        <option value="" disabled selected>Selecciona una opción</option>
+                                        {% for item in marcas  %}
+                                        <option value="{{item.id}}">{{item.nombre}}</option>
+                    
+                                        {% endfor %}
+                                            
+                                    </select>
+                                </div>
+                            </div>
+     
+                                                     
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">Tipo</div>
+                                    <div class="col-md-6">
+                                        <select name="tipo" class="form-control" required="" id="id_tipo">
+                            
+                                          
+                                          {% if obj %}
+                                          <option value="{{obj.tipo.value}}"  selected>{{obj.tipo}}</option>
+                                          {% for value , text in form.tipo.field.choices %}
+                                          <option value="{{value}}">{{text}}</option>
+                                     {% endfor %}
+                                              {% else %}
+                                              <option value="0" disabled selected>Selecciona una opción</option>
+                                              {% for value , text in form.tipo.field.choices %}
+                                                   <option value="{{value}}">{{text}}</option>
+                                              {% endfor %}
+                                              {% endif %}
+                                            </select>
+                                    
+                                              
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="col-md-6">Categoria<small>(solo para prod.)</small></div>
+                                    <div class="col-md-6">
+                                        <select name="categoria" id="id_categoria" class="form-control from-control-sm" >
+                                            <option value="" disabled selected>Selecciona una opción</option>
+                                            {% for item in categorias  %}
+                                            <option value="{{item.id}}">{{item.nombre}}</option>
+                        
+                                            {% endfor %}
+                                                
+                                        </select>
+                                    </div>
+
+                                </div>                            
+                            </div>
+                            <div class="row">
+                               
+                                <div class="col-md-6">
+                                    
+                                 
+                                    {% if obj %}
+                                    
+                                           {% if obj.tipo == 'MERCADERIA' or obj.tipo == 'mercaderia' %}
+                                           <div class="col-md-6">{{form.existencia.label}}(en kg)</div>
+                                           {% elif obj.tipo == 'CARNE' or  obj.tipo == 'carne'  %}
+                                           <div class="col-md-6">Cantidad vendida</div>
+   
+                                           {% endif %}
+                                   {% else %}
+                                   <div class="col-md-6">{{form.existencia.label}}(en kg)</div>
+                                        
+                                    {% endif %}
+                                        
+                                     
+                                       <div class="col-md-6">{{form.existencia }}</div>
+                                   </div>
+                                   <div class="col-md-6">
+                                   
+                                      
+                                        <div class="col-md-6">{{form.ultimacompra.label}}</div>
+                                        <div class="col-md-6">{{form.ultimacompra}}</div>    
+                                        
+                                         
+                            
+                                   </div>
+       
+                                                   
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.estado.label}}</div>
+                                    <div class="col-md-6">{{form.estado}}</div>    
+                                   
+                               
+                                </div>
+                                                  
+                            </div>
+                        
+                            <div class="dropdown-divider"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                                  <button type="submit" class="btn btn-success" onclick="return cerrar_modal()">Cancelar</button>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+</div>
+
+<script>
+ $(function(){
+     let  url = $("form")[1].action;
+     var token= jQuery("[name=crsfmiddlewaretoken]").val();
+
+     $("form").submit(function(e){
+         e.preventDefault();
+         var formData =$("form").serializeArray();
+         $.ajax({
+             url:url,
+             method:"POST",
+             headers: {'X-CRSFToken': token},
+             data: formData,
+
+
+         })
+            .done(function(r,textStatus,xhr){
+                if(xhr.status=200){
+                    location.reload(true);
+                }
+                else{
+                    alert(textSatatus);
+                }
+     }).fail( function (error){
+         mens=error.responseText
+         if (mens!=null){
+             mensaje('Faltan campos por completar o ya existe un producto con ese codigo' , 'error')
+                return false;
+         }
+     });
+     });
+ });
+$(function()
+{
+
+    $("#id_unidad").val("{{obj.unidad.id}}").change();
+    $("#id_categoria").val("{{obj.categoria.id}}").change();
+    $("#id_marca").val("{{obj.marca.id}}").change();
+   
+});
+
+</script>
+
+  <!--
+
+  <div class="row">
+                          
+                           
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.nombre.label}}</div>
+                                            <div class="col-md-6">{{form.nombre}}</div>
+                                        </div>
+            
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.codigo.label}}</div>
+                                            <div class="col-md-6">{{form.codigo}}</div>    
+                                        </div>   
+                                      
+                                                             
+                                    </div>
+                    
+                                    <div class="row">
+                                        <div class="col-md-6" >
+                                            <div class="col-md-6">{{form.descripcion.label}}</div>
+                                            <div class="col-md-6">{{form.descripcion}}</div>
+    
+                                        </div>
+                                        <div class="col-md-6" style="align-content: center;">
+                                            <div class="col-md-6">{{form.estado.label}}</div>
+                                            <div class="col-md-6">{{form.estado}}</div>    
+                                        </div>  
+            
+                                                               
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.precioventa.label}}</div>
+                                            <div class="col-md-6">{{form.precioventa}}</div>
+                                        </div>
+            
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.existencia.label}}</div>
+                                            <div class="col-md-6">{{form.existencia}}</div>    
+                                        </div>                            
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.ultimacompra.label}}</div>
+                                            <div class="col-md-6">{{form.ultimacompra}}</div>
+                                        </div>
+            
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.sm.label}}</div>
+                                            <div class="col-md-6">{{form.sm}}</div>    
+                                        </div>                            
+                                    </div>
+            
+                             
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">Cepa</div>
+                                            <div class="col-md-6">
+                                                <select name="cepa" id="id_cepa" class="form-control from-control-sm">
+                                                    <option value="0">-------</option>
+                                                    {% for item in cepa %}
+                                                    <option value="{{item.id}}">{{item.nombre}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </div>
+            
+                                     
+                                            <div class="col-md-12">
+                                            <div class="col-md-6">bodega</div>
+                                            <div class="col-md-6">
+                                                <select name="bodega" id="id_bodega" class="form-control from-control-sm">
+                                                    <option value="0">-------</option>
+                                                    {% for item in bodega %}
+                                                    <option value="{{item.id}}" >{{item.nombre}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </div>   
+                                                          
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">unidad</div>
+                                            <div class="col-md-6">
+                                                <select name="unidad" id="id_unidad" class="form-control from-control-sm">
+                                                    <option value="0">-------</option>
+                                                    {% for item in unidad %}
+                                                    <option value="{{item.id}}">{{item.medida}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </div>
+            
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">reserva</div>
+                                            <div class="col-md-6">
+                                                <select name="subcategoria" id="id_reserva" class="form-control from-control-sm">
+                                                    <option value="0">-------</option>
+                                                    {% for item in reserva %}
+                                                    <option value="{{item.id}}" >{{item.tipo}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </div>           
+                                    </div>
+            
+                
+                                </div>
+
+  -->
+

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">DETALLE DE VENTAS</h6>
+                  <div class="dropdown no-arrow">
+                
+                 
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                
+                 {% if not obj %}
+                     No hay registro de ventas
+                 {% endif %}
+                 <div class="buttons-toolbar"> <a class="btn btn-success"  href="{% url 'reses:listareses' %}" ><i class="fas fa-undo-alt" style="margin-right: 3px;"></i>Volver</a></div>
+                 <table data-toggle="table"
+                 id="table"
+
+                 data-pagination="true" 
+                 data-search="true"
+                 data-show-columns="true"
+                 data-show-toggle="true"
+                 data-show-fullscreen="true"
+                 data-toolbar=".buttons-toolbar"
+                 data-locale="es-AR"
+
+                 >
+                    <thead>
+   <th data-sortable="true" data-field="id" >id</th>
+    <th data-sortable="true" data-field="res" >res</th>
+    <th data-sortable="true" data-field="cliente" >cliente</th>
+   
+
+     <th data="precio" >precio</i></th>
+     <th  data="medio_pago"  >medio de pago</th>
+     <th   >estado</th>
+  
+    <th class="all">Editar</th>
+                    </thead>
+<tbody>
+
+    {% for item in obj  %}
+    <tr>
+      <td>{{item.id}}</td>
+
+        <td>{{item.res}}</td>
+
+        <td>{{item.cliente}}</td>
+        <td>{{item.precio}}</td>
+        <td>{{item.medio_pago}}</td>
+        <td>{{item.estado}}</td>
+       
+        </td> 
+        <td>
+          <a href="{% url 'reses:editarventares' item.id %}" class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
+         
+      </td>
+       </tr>  
+       {% endfor %}
+    
+        
+   
+        
+</tbody>
+
+                 </table>
+                     
+                </div>
+              </div>
+    
+{% endblock page_content %}
+{% block js_page %}
+
+<script>
+
+     </script>
+{% endblock %}
+    

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+ 
+
+   <form method="POST" class="form-inline">
+    {% csrf_token %}
+    <div class="col-xl-6 col-md-6 mb-6">
+    
+        <div class="card border-left-success shadow h-100 py-2">
+    
+            <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Nuevo pago
+                    </div>
+                    <div class="dropdown-divider"></div>
+                                                    {% csrf_token %}
+                                <div class="row">
+                                    <div class="container">
+                                        <div class="row" class="row-margin">
+                                            <div class="col-6 " >Saldo actual</div>
+                                            <div class="col-6 "><input type="text" class="form-control" value="{{saldo}}" readonly></div>
+                                        </div>
+                                        <div class="row" class="row-margin">
+                                            <div class="col-6 " >Cliente</div>
+                                            <input readonly type="text" class="form-control" name="cliente" id="id_cliente"  hidden value="{{cliente_id}}">
+                                            <div class="col-6 "><input readonly type="text"  class="form-control"  value="{{cliente}}"></div>
+                                        </div>
+                                  
+                                
+                                        <div class="row" class="row-margin">
+                                            <div class="col-6 ">Seleccione medio de pago</div>
+                                            <div class="col-6">
+                                                <select name="medio" id="medio" class="form-control" >
+                                                    
+                                                    {% for item in medios_pago  %}
+                                                        <option value="{{item.id}}">{{item}}</option>
+                                                    {% endfor %}
+                                                        
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">Monto</div>
+                                            <div class="col-6 "><input type="text" class="form-control" name="monto" id="monto"></div>
+                                        </div>
+                                
+                                    
+                                    </div>
+                                </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                            <a href="{% url 'ventas:lista_clientes' %}" class="btn btn-success"><span class="fa fa-undo"></span>Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock page_content %}
+    

@@ -1,0 +1,123 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="col-xl-12 col-md-12 mb-12">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Buscar Producto
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        
+                        <div class="row">
+                                <table
+                                id="tblMercaderias"
+                                data-pagination="true"
+                                data-search="true"
+                                data-show-columns="true"
+                                data-show-fullscreen="true"
+                                data-locale="es-NI"
+                                >
+                                <thead>
+                                  <th data-sortable="true" data-field="id">Id</th>        
+                                  <th data-sortable="true" data-field="codigo">Código</th>
+                                  <th data-sortable="true" data-field="codigo_barra">Barra</th>
+                                  <th data-field="descripcion">Tipo</th>
+                                  <th data-field="existencia">Existencia</th>
+                                  <th data-field="precioventa">Precio</th>
+                                  <th class="all">Acciones</th>
+                                </thead>
+                                <tbody>
+                                  {% for item in productos%}
+                                  <tr>
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.nombre }}</td>
+                                    <td>{{ item.codigo }}</td>
+                                    <td>{{item.tipo}}</td>
+                                    
+                                    {% if item.tipo == 'mercaderia' %}
+                                    <td>{{item.existencia}}</td>
+                                    {% else %}
+                                    <td>-</td>
+                                    {% endif %}
+                                        
+                                  
+                                    <td>{{item.precioventa}}</td>
+                                    <td>
+                                        
+                                        {% if item.tipo == 'mercaderia' and item.existencia > 0 and item.estado %}
+                                        <button class="btn btn-warning btn-circle" id="btnSelect" 
+                                        onclick="seleccionarProducto({{item.id}},'{{item.codigo}}','{{item.descripcion}}','{{item.existencia}}','{{item.tipo}}',{{item.precioventa}} )"> <i class="far fa-hand-pointer"></i></button>
+                                           
+                                        </button>
+
+                                        {% elif item.tipo == 'carne' and item.estado%}
+                                        <button class="btn btn-warning btn-circle" id="btnSelect" 
+                                        onclick="seleccionarProducto({{item.id}},'{{item.codigo}}','{{item.descripcion}}','{{item.existencia}}','{{item.tipo}}',{{item.precioventa}} )"> <i class="far fa-hand-pointer"></i></button>
+                                              
+                                           </button>
+
+                                        {% endif %}
+                                            
+
+                                    
+                                     
+                               
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                      
+                            </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                                <button type="button" id="btnCancelar" class="btn btn-success">
+                                        <!-- onclick="return cerrar_modal()" -->
+                                        Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% block js_page %}
+<script>
+    $(function () {
+
+        $("#btnCancelar").click(function(e){
+            e.preventDefault();
+            cerrar_modal();
+
+        });
+    });
+    $('#tblMercaderias').bootstrapTable();
+
+    function seleccionarProducto(id,codigo,descripcion,existencia,tipo,precioventa){
+        console.log(tipo,codigo)
+        $("#codigo").val(codigo);
+        $("#descripcion").val(descripcion);
+        $("#existencia").val(existencia);
+        $("#precio").val(precioventa);
+        $("#tipo").val(tipo);
+
+        $("#btnCancelar").click();
+        $("#codigo").select();
+        $("#codigo").focus();
+
+    }
+
+</script>
+{% endblock %}
+
+<!--
+  
+-->

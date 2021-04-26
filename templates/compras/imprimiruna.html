@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Listado de Compras</title>
+
+    <style type="text/css">
+    @page {
+        size: letter;
+        margin: 1cm;
+    }
+
+    .table td {
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4>Detalle de compra</h4>
+            </div>
+            <div class="row">
+             <div class="row">   <div class="col-md-6"> <p>No. Compra: {{ encabezado.id}} </p>
+                
+                <h3>Fecha Compra</h3>
+                 <h3> {{ encabezado.fecha_compra|date:"d/m/Y"}}</h3>
+               
+               </div></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Observacion</h3>
+                        <h3>{{encabezado.Observación}} </h3>
+                     <h3>Total</h3>  
+                     <h3>{{ encabezado.total}}</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for item in detalle %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{item.vino.codigo}}</td>
+                        <td>{{item.vino}}</td>
+                        <td>{{item.precio}}</td>
+                        <td>{{item.cantidad}}</td>
+                        <td>{{item.sub_total}}</td>
+                      </tr>
+                    {% endfor %}
+           
+
+              
+              
+                </tbody>
+              </table>
+
+           
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!--
+     <table class="table">
+                <thead>
+                    <tr>
+                  
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in detalle %}
+                    <tr>
+                        <td  >{{ item.vino}}</td>
+                        <td class="numero">{{ item.cantidad }}</td>
+                        <td class="numero">{{ item.precio}}</td>
+                        <td class="numero">{{ item.sub_total }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                           
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                         
+                          </tr>
+
+                </tbody>
+            </table>
+-->

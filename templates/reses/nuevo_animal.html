@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+<div class="col col-6"> 
+<form action="" method="post">{% csrf_token %}
+  <div class="col-md-8">
+    <select name="tropa" id="id_tropa" class="form-control from-control-sm">
+      
+      {% if tropa %}
+           
+      {% for item in tropa  %}
+      <option value="{{item.id}}">{{item}}</option>
+
+      {% endfor %}
+      <option value="0">-----------</option>
+     
+      {% endif %}
+        
+      
+    </select>
+</div>
+<div class="col-md-8" style="margin-top: 10px;">
+  <label for="peso_animal">Peso del animal</label>
+  <input type="number" name="peso_animal" value="0" step="any" required="" id="id_peso_animal" class="form-control from-control-sm">
+
+</div>
+ <div class="col-md-8" style="margin-top: 10px;">
+  <button class="btn btn-success" type="submit">crear</button>
+  <a class="btn btn-google" href="{% url 'reses:lista_tropas' %} ">cancelar</a>
+ </div>
+
+</form>
+</div>
+{% endblock page_content %}
+  <script>
+
+  </script>

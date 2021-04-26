@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">REGISTRO DE RESES</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">ACCIONES:</div>
+                      <a class="dropdown-item" href="">Nueva</a>
+                    
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                 
+                 {% if not obj %}
+                     No hay registro de reses
+                 {% endif %}
+                 <div class="buttons-toolbar"> <a class="btn btn-success"  href="{% url 'reses:nuevaventares' %}" ><i class="fas fa-list" style="margin-right: 3px;"></i>Venta de reses</a></div>
+                 <table class="table table-striped table-hover"
+                 
+                 id="table"
+      data-toggle="table"
+      data-pagination="true"
+      data-search="true"
+      data-show-columns="true"
+      data-show-toggle="true"
+      data-show-fullscreen="true"
+      data-toolbar=".buttons-toolbar"
+      data-locale="es-NI"
+                 
+                 
+                 
+                 >
+                    <thead>
+                        <th data-sortable="true" data-field="nombre">Nombre</th>
+                        <th data-sortable="true" >Animal</th>
+                        <th data-sortable="true" >Tropa</th>
+                      <th>Peso</th>
+                     
+                      <th>Estado</th>
+     
+     <th  class="all">Editar</th>
+                    </thead>
+<tbody>
+    
+    {% for item in obj  %}
+    <tr>
+        <td>{{item}}</td>
+        <td>{{item.animal.numero}}</td>
+        <td>{{item.animal.tropa}}</td>
+        <td>{{item.peso}}</td>
+        
+     
+   
+   
+        <td>
+          
+          {% if  item.vendida %}
+          Vendida
+            {% else  %}
+           No vendida
+          {% endif %}
+            
+         
+        </td>
+
+        <td>
+            <a href="{% url 'reses:editar_res' item.id %}" class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
+           
+        </td>
+    </tr>
+        
+    {% endfor %}
+        
+</tbody>
+
+                 </table>
+                     
+                </div>
+              </div>
+    
+{% endblock page_content %}
+
+{% block js_page %}
+<script>
+
+     </script>
+{% endblock js_page %}
+    
+    <!--
+
+           <td>{{item.ingreso}} | {{item.uc}}</td>
+        <td> {{item.fm}} |
+          {{item.um}}
+        </td>
+    -->

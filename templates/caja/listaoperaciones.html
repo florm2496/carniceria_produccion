@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">REGISTRO DE MOVIMIENTOS</h6> <h3>Monto actual en caja: {{montoactual}}</h3>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">ACCIONES:</div>
+                      <a class="dropdown-item" href="{% url 'caja:operaciones' %}">Nueva</a>
+                    
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                 
+               
+                 <table class="table table-striped table-hover"
+                 
+                 id="table"
+      data-toggle="table"
+      data-pagination="true"
+      data-search="true"
+      data-show-columns="true"
+      data-show-toggle="true"
+      data-show-fullscreen="true"
+      data-toolbar=".buttons-toolbar"
+      data-locale="es-NI"
+                 
+                 
+                 
+                 >
+                    <thead>
+                        <th data-sortable="true" >Movimiento</th>
+    
+     <th  >Monto</th>
+     <th >Observacion</th>
+     <th  >Concepto</th>
+   
+    <th  class="all">Editar</th>
+                    </thead>
+<tbody>
+    
+    {% for item in movimientos  %}
+    <tr>
+        <td>{{item.movimiento}}</td>
+        <td> {{item.monto}} </td>
+        <td>{{item.observacion}}</td>
+       
+        <td>{{item.concepto}}
+        </td>
+        </td>
+        <td>
+            <a href="" class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
+           
+        </td>
+    </tr>
+        
+    {% endfor %}
+        
+</tbody>
+
+                 </table>
+                     
+                </div>
+              </div>
+    
+{% endblock page_content %}
+
+{% block js_page %}
+<script>
+
+     </script>
+{% endblock js_page %}
+    
+    

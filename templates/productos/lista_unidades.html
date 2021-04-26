@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">LISTADO DE UNIDADES</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">ACCIONES:</div>
+                      <a class="dropdown-item" href="{% url 'productos:crear_unidad' %}">Nueva</a>
+                    
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                 
+                 {% if not obj %}
+                     No hay unidades
+                 {% endif %}
+                 <table class="table table-striped table-hover"
+                 id="table"
+                 data-toggle="table"
+                 data-pagination="true"
+                 data-search="true"
+                 data-show-columns="true"
+                 data-show-toggle="true"
+                 data-show-fullscreen="true"
+                 data-toolbar=".buttons-toolbar"
+                 data-locale="es-NI"
+                 
+                 
+                 >
+                    <thead>
+                  <th data-sortable="true" data-field="medida">Medida</th>
+                  <th data-sortable="true">Estado</th>
+  <th data-sortable="true">Usuario creador</th>
+  <th>Ultima modificacion</th>
+    <th class="all">Editar</th>
+                    </thead>
+<tbody>
+    
+    {% for item in obj  %}
+    <tr>
+        <td>{{item.nombre}}</td>
+        <td>
+          
+          {% if item.estado is True %}
+          Activo
+          {% else %}
+          Inactivo            
+          {% endif %}
+            
+        </td>
+        <td>{{item.uc}}</td>
+        <th>{{item.fm}}
+          {{item.um}}
+        </th>
+        <td>
+            <a href="{% url 'productos:editar_unidad' item.id%}" class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
+          
+        </td>
+    </tr>
+        
+    {% endfor %}
+        
+</tbody>
+
+                 </table>
+                     
+                </div>
+              </div>
+    
+{% endblock page_content %}
+
+{% block js_page %}
+    
+{% endblock js_page %}
+    
+    

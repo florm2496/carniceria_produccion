@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">LISTADO DE PAGOS DE {{cliente}}</h6>
+                  <div class="dropdown no-arrow">
+            
+                    <a href="{% url 'ventas:lista_clientes' %}" class="btn btn-info" >Volver<i class="fas fa-undo"></i></a>
+                 
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                 
+                 {% if not obj %}
+                     No hay cliente
+                 {% endif %}
+                 <div class="buttons-toolbar"> <a class="dropdown-item" href="#" onclick="return abrir_modal('{% url 'ventas:crear_cliente' %}')"><i class="far fa-calendar-plus"></i>Nueva</a></div>
+                 <table data-toggle="table"
+                 id="table"
+
+                 data-pagination="true" 
+                 data-search="true"
+                 data-show-columns="true"
+                 data-show-toggle="true"
+                 data-show-fullscreen="true"
+                 data-toolbar=".buttons-toolbar"
+                 data-locale="es-AR"
+
+                 >
+                    <thead>
+
+    <th data-sortable="true" data-field="nombre" >Nombre</th>
+
+   
+
+     <th>Monto</th>
+     <th>Medio de pago</th>
+     <th>Fecha</th>
+     <th>Usuario</th>
+     <th>Cancelar</th>
+
+  
+    
+  
+                    </thead>
+<tbody>
+
+    {% for item in obj  %}
+    <tr>
+      <td>{{item.cliente}}</td>
+
+        <td>{{item.monto}}</td>
+
+
+        <td>{{item.medio}}</td>
+        <td>{{item.fc}}</td>
+        <td>{{item.uc}}</td>     
+        <td><a href="#" class="btn btn-danger"><i class="fas fa-ban"></i></a></td>   
+
+<!--modal de pagos del cliente-->
+     
+    
+       </tr>  
+       {% endfor %}
+    
+        
+   
+        
+</tbody>
+
+                 </table>
+                     
+                </div>
+              </div>
+    
+{% endblock page_content %}
+{% block js_page %}
+
+<script>
+
+     </script>
+{% endblock %}
+    

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+<form method="POST" class="form-inline">
+    {% csrf_token %}
+    <div class="col-xl-6 col-md-6 mb-6">
+        {% if obj %}
+        <div class="card border-left-warning shadow h-100 py-2">
+        {% else %}
+        <div class="card border-left-success shadow h-100 py-2">
+        {% endif %}
+            <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <!--COL-->
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        {% if obj %} Editar {% else %} Nuevo {% endif %} Movimiento
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    {% csrf_token %}
+<div class="row">
+    <div class="col-10">
+
+        <div class="input-group ">
+            <input type="text" name="monto" maxlength="100" class="form-control m-1" required id="id_monto" placeholder="Monto"
+            value="{% if obj %} {{ obj.monto }} {% endif %}">
+        </div>
+
+    </div>
+
+    <div class="col-10">
+        <div class="input-group">
+            <select  class="form-control m-1"  style="border-radius: 5px; font-weight: bolder;" name="{{ form.movimiento.name }}">
+                {% for choice in form.movimiento.field.choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+        
+
+
+        </div>
+       
+    
+    </div>
+    <div class="col-10">
+        <div class="input-group">
+            {{form.concepto.label}}
+        {{form.concepto}}
+
+
+        </div>
+       
+    
+    </div>
+    <div class="col-10">
+        <div class="input-group ">
+            <input type="text" name="observacion" maxlength="100" class="form-control m-1" required id="id_observacion" placeholder="Observacion"
+            value="{% if obj %} {{ obj.observacion}} {% endif %}">
+        </div>
+    
+    </div>
+</div> 
+
+                    <div class="dropdown-divider"></div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                            <a href="" class="btn btn-success"><span class="fa fa-undo"></span>Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+  {% endblock page_content %}
+
