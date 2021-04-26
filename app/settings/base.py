@@ -1,30 +1,14 @@
 import os
 from unipath import Path
-from decouple import config
-import dj_database_url
+#from decouple import config
+#import dj_database_url
 
 
 
-BASE_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-DEBUG=True
-
-ALLOWED_HOSTS=['*']
-
-
-SECRET_KEY = config('SECRET_KEY')
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'carne_db5',
-        'HOST':'localhost',
-        'PORT':'5432',
-        'USER': 'florm2496',
-        'PASSWORD':'pan1994245',
-    }
-}
+SECRET_KEY = 'rxd@m^)t-ty1xnt(h&-tt52zvr_vu$mf=#bv)c8t%@6xg#9=i1'
 
 
 # Application definition
@@ -120,20 +104,3 @@ USE_TZ = True
 
 TIME_ZONE='America/Argentina/Buenos_Aires'
 
-
-STATIC_ROOT=os.path.join(BASE_DIR ,'staticfiles')
-STATIC_URL = '/static/'
-#estas configuraciones se hicieron para el deploy en heroku
-STATIICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_DIRS = (os.path.join(BASE_DIR ,'static'),)
-
-
-#STATICFILES_DIRS=(os.path.join(BASE_DIR,'static'),)
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login/'
-
-
-
-
-db_from_env=dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
